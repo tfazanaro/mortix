@@ -104,16 +104,16 @@ public class Score {
         console.write("The winner prefers to use " + results.preference(winner) + ".");
         console.newLine();
 
-        console.write("The max sequence of kills (streak) was " + results.streak().get("max") + " by " + results.streak().get("player") + ".");
+        console.write("The max sequence of kills with no death (streak) was " + results.streak().get("max") + " by " + results.streak().get("player") + ".");
         console.newLine();
 
         if (numberOfDeaths == 0) {
-            console.write(winner + " has won with no death = AWARD.");
+            console.write(winner + " has won without any death = 1 AWARD.");
             console.newLine();
         }
 
         for (String player : results.fiveKillsPerMinute()) {
-            console.write(player + " has killed 5x/minute = AWARD.");
+            console.write(player + " has killed 5x per minute = 1 AWARD.");
             console.newLine();
         }
 
