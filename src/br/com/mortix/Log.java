@@ -6,6 +6,15 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Classe responsável por ler um arquivo de log e obter as
+ * informações de uma partida, tais como:
+ * Nome dos jogadores,
+ * Armas utilizadas,
+ * Assassinos,
+ * Vítimas,
+ * etc.
+ */
 public class Log {
 
     private Scanner scanner;
@@ -25,7 +34,7 @@ public class Log {
         if (logFileExists(filename)) {
             openFile(filename);
             getLinesFromFile();
-            getValuesPerColumnFromFile();
+            getValuesPerColumnFromLines();
             setPlayersOfTheMatch();
             setWeaponsOfTheMatch();
         }
@@ -54,9 +63,12 @@ public class Log {
         }
     }
 
-    private void getValuesPerColumnFromFile()
+    private void getValuesPerColumnFromLines()
     {
+        // Obtém as jogadas, sem as informações
+        // do início e fim da partida.
         ArrayList<String> lines = getTheMoves();
+
         String[][] columns = new String[lines.size()][7];
 
         for (int i = 0; i < lines.size(); i++)
@@ -74,9 +86,14 @@ public class Log {
     private ArrayList<String> getTheMoves()
     {
         ArrayList<String> lines = new ArrayList<String>();
+
         lines.addAll(log);
+
+        // Remove a primeira e a última linha do log com
+        // as informações do início e fim da partida.
         lines.remove(0);
         lines.remove(lines.size()-1);
+
         return lines;
     }
 

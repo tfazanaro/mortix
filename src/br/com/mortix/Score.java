@@ -14,7 +14,7 @@ public class Score {
         console = new Console();
         gui = new GUI();
 
-        if (args.length > 0 && !args[0].isEmpty()) {
+        if (args.length > 0 && args[0] != null && !args[0].isEmpty()) {
             setLog(args[0]);
         } else {
             String filename = "";
@@ -60,9 +60,9 @@ public class Score {
 
         for (String player : log.getPlayers())
         {
-            int k = 0;      // Número de assassinatos do jogador
-            int d = 0;      // Número de mortes do jogador
-            int points = 0; // Considera quem matou mais subtraindo o número de mortes
+            int k = 0; // Número de assassinatos do jogador
+            int d = 0; // Número de mortes do jogador
+            int points = 0;
 
             if (!player.equals(Players.WORLD))
             {

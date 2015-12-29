@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Classe responsável por calcular os resultados de uma partida
+ * usando o log que foi gerado durante o jogo.
+ */
 public class Results {
 
     private Log log;
@@ -14,6 +18,12 @@ public class Results {
         this.log = log;
     }
 
+    /**
+     * Método para calcular a maior seqüência de assassinatos sem mortes
+     * de um jogador dentro da partida.
+     *
+     * @return HashMap<String, String> Nome do jogador e quantidade de assassinatos.
+     */
     public final HashMap<String, String> streak() {
 
         int max = 0;
@@ -55,6 +65,12 @@ public class Results {
         return result;
     }
 
+    /**
+     * Obtém as armas utilizadas por um jogador para cometer os assassinatos.
+     *
+     * @param player Nome do jogador.
+     * @return ArrayList<String> Lista de armas usadas pelo jogador.
+     */
     public final ArrayList<String> getPlayerUsages(String player)
     {
         ArrayList<String> usedByKiller = new ArrayList<String>();
@@ -69,6 +85,12 @@ public class Results {
         return usedByKiller;
     }
 
+    /**
+     * Obtém a arma preferida de um jogador para cometer os assassinatos.
+     *
+     * @param player Nome do jogador.
+     * @return String Nome da(s) arma(s) preferida(s).
+     */
     public final String preference(String player) {
 
         int max = 0;
@@ -99,6 +121,8 @@ public class Results {
                     aux = pos;
                     preference = this.log.getWeapons().get(aux);
                 } else {
+                    // Se houver mais de uma arma preferida (mesma quantidade de uso),
+                    // então concatena ambas na string.
                     if (numberOfUsages.get(pos) == max) {
                         preference = preference + " and " + this.log.getWeapons().get(pos);
                     }
@@ -110,6 +134,12 @@ public class Results {
         return preference;
     }
 
+    /**
+     * Método que retorna os jogadores que mataram 5x dentro de
+     * um minuto na partida.
+     *
+     * @return ArrayList<String> Lista com os nomes dos jogadores.
+     */
     public ArrayList<String> fiveKillsPerMinute() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
@@ -141,7 +171,8 @@ public class Results {
                         e.printStackTrace();
                     }
 
-                    if (player.equals(killer)) {
+                    if (player.equals(killer))
+                    {
                         if (num == 0 || ((dateTime.getTime() - start.getTime()) / 1000) > 60) {
                             start = dateTime;
                             num = 0;
@@ -154,7 +185,8 @@ public class Results {
                         }
                     }
 
-                    if (end != null) {
+                    if (end != null)
+                    {
                         diffMS = end.getTime() - start.getTime();
                         diffSeconds = diffMS / 1000;
                         diffMinutes = diffSeconds / 60;
@@ -171,6 +203,12 @@ public class Results {
         return players;
     }
 
+    /**
+     * Método para calcular quantas vezes um jogador morreu na partida.
+     *
+     * @param player Nome do jogador.
+     * @return int Número de mortes do jogador.
+     */
     public int deathsOfThePlayer(String player)
     {
         int d = 0;
@@ -182,6 +220,12 @@ public class Results {
         return d;
     }
 
+    /**
+     * Método para calcular quantas vezes um jogador matou na partida.
+     *
+     * @param player Nome do jogador.
+     * @return int Número de assassinatos do jogador.
+     */
     public int killsOfThePlayer(String player)
     {
         int k = 0;
@@ -193,6 +237,12 @@ public class Results {
         return k;
     }
 
+    /**
+     * Método para calcular os pontos de um jogador na partida.
+     *
+     * @param player Nome do jogador.
+     * @return int Pontos do jogador.
+     */
     public int pointsOfThePlayer(String player)
     {
         int points = 0;
@@ -202,6 +252,10 @@ public class Results {
             int k = killsOfThePlayer(player);
             int d = deathsOfThePlayer(player);
             points = k - d;
+        }
+        if (points < 0)
+        {
+            return 0;
         }
         return points;
     }

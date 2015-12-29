@@ -14,9 +14,9 @@ public class ResultsTest {
     private Console console;
 
     // Informe o nome do arquivo (= número da partida) que deseja testar.
-    private String filename = "11348";
+    private String filename = "11348965";
     // Informe o nome de um jogador para testar.
-    private String player = "roman";
+    private String player = "thomas";
 
     public ResultsTest()
     {
