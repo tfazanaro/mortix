@@ -71,11 +71,11 @@ public class Results {
      * @param player Nome do jogador.
      * @return ArrayList<String> Lista de armas usadas pelo jogador.
      */
-    public final ArrayList<String> getPlayerUsages(String player)
-    {
-        ArrayList<String> usedByKiller = new ArrayList<String>();
+    public final ArrayList<String> getPlayerUsages(String player) {
 
+        ArrayList<String> usedByKiller = new ArrayList<String>();
         int i = 0;
+
         for (String killer : this.log.getKillers()) {
             if (player.toUpperCase().equals(killer)) {
                 usedByKiller.add(this.log.getUsages().get(i));
@@ -102,8 +102,8 @@ public class Results {
         ArrayList<String> playerUsages = this.getPlayerUsages(player.toUpperCase());
         ArrayList<Integer> numberOfUsages = new ArrayList<Integer>();
 
-        if (playerUsages.size() > 0)
-        {
+        if (playerUsages.size() > 0) {
+
             for (String weapon : this.log.getWeapons()) {
 
                 int num = 0;
@@ -171,8 +171,7 @@ public class Results {
                         e.printStackTrace();
                     }
 
-                    if (player.equals(killer))
-                    {
+                    if (player.equals(killer)) {
                         if (num == 0 || ((dateTime.getTime() - start.getTime()) / 1000) > 60) {
                             start = dateTime;
                             num = 0;
@@ -185,8 +184,7 @@ public class Results {
                         }
                     }
 
-                    if (end != null)
-                    {
+                    if (end != null) {
                         diffMS = end.getTime() - start.getTime();
                         diffSeconds = diffMS / 1000;
                         diffMinutes = diffSeconds / 60;
@@ -209,9 +207,10 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Número de mortes do jogador.
      */
-    public int deathsOfThePlayer(String player)
-    {
+    public int deathsOfThePlayer(String player) {
+
         int d = 0;
+
         for (String victim : log.getVictims()) {
             if (player.toUpperCase().equals(victim)) {
                 d++;
@@ -226,9 +225,10 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Número de assassinatos do jogador.
      */
-    public int killsOfThePlayer(String player)
-    {
+    public int killsOfThePlayer(String player) {
+
         int k = 0;
+
         for (String killer : log.getKillers()) {
             if (player.toUpperCase().equals(killer)) {
                 k++;
@@ -243,19 +243,15 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Pontos do jogador.
      */
-    public int pointsOfThePlayer(String player)
-    {
+    public int pointsOfThePlayer(String player) {
+
         int points = 0;
 
-        if (!player.toUpperCase().equals(Players.WORLD))
-        {
+        if (!player.toUpperCase().equals(Players.WORLD)) {
             int k = killsOfThePlayer(player);
             int d = deathsOfThePlayer(player);
             points = k - d;
-        }
-        if (points < 0)
-        {
-            return 0;
+            points = (points < 0) ? 0 : points;
         }
         return points;
     }

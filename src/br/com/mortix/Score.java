@@ -9,31 +9,37 @@ public class Score {
     private static Console console;
     private static GUI gui;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
+
+        String filename = "";
         console = new Console();
         gui = new GUI();
 
         if (args.length > 0 && args[0] != null && !args[0].isEmpty()) {
-            setLog(args[0]);
-        } else {
-            String filename = "";
-            while(!log.logFileExists(filename)) {
-                filename = gui.read("Informe um número válido (nome) do arquivo de log:");
+            if (Log.logFileExists(args[0])) {
+                setLog(args[0]);
+                showResults();
+            } else {
+                console.write("The log file doesn't exist!");
             }
-            setLog(filename);
+        } else {
+            while (!Log.logFileExists(filename) && !filename.trim().equals("0")) {
+                filename = gui.read("Type a valid log file name or type 0 to exit:");
+            }
+            if (!filename.trim().equals("0")) {
+                setLog(filename);
+                showResults();
+            }
         }
-        showResults();
         System.exit(0);
     }
 
-    private static void setLog(String filename)
-    {
+    private static void setLog(String filename) {
         log = new Log(filename);
     }
 
-    private static boolean showResults()
-    {
+    private static boolean showResults() {
+
         if (log == null) {
             return false;
         }
@@ -49,8 +55,7 @@ public class Score {
         console.separator();
         console.newLine();
 
-        for (String line : log.getAllLines())
-        {
+        for (String line : log.getAllLines()) {
             console.write(line);
         }
 
@@ -58,14 +63,14 @@ public class Score {
         console.separator();
         console.write("RESULTS:");
 
-        for (String player : log.getPlayers())
-        {
+        for (String player : log.getPlayers()) {
+
             int k = 0; // Número de assassinatos do jogador
             int d = 0; // Número de mortes do jogador
             int points = 0;
 
-            if (!player.equals(Players.WORLD))
-            {
+            if (!player.equals(Players.WORLD)) {
+
                 console.separator();
                 console.newLine();
 
