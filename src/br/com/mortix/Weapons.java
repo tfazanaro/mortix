@@ -2,15 +2,19 @@ package br.com.mortix;
 
 import java.util.ArrayList;
 
-public class Weapons {
+public final class Weapons {
 
-    private ArrayList<String> weapons = new ArrayList<String>();
+    private static ArrayList<String> weapons = new ArrayList<String>();
 
     public void add(String name) {
-        this.weapons.add(name);
+        weapons.add(name);
     }
 
     public ArrayList<String> getAll() {
-        return this.weapons;
+        return weapons;
+    }
+
+    public static boolean weaponExists(String weapon) {
+        return (weapons.contains(weapon.toUpperCase()));
     }
 }
