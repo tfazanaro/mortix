@@ -1,6 +1,7 @@
 package br.com.mortix.tests;
 
 import br.com.mortix.Log;
+import br.com.mortix.Players;
 import br.com.mortix.Results;
 import br.com.mortix.ui.Console;
 import org.junit.Test;
@@ -15,12 +16,12 @@ public class ResultsTest {
 
     // Informe o nome do arquivo (= número da partida) que deseja testar.
     private String filename = "11348965";
-    // Informe o nome de um jogador para testar.
+    // Informe um nome válido de jogador para testar (não é "case sensitive").
     private String player = "thomas";
 
-    public ResultsTest()
-    {
-        if (log.logFileExists(filename)) {
+    public ResultsTest() {
+
+        if (Log.logFileExists(filename)) {
             log = new Log(filename);
             results = new Results(log);
             console = new Console();
@@ -28,105 +29,102 @@ public class ResultsTest {
     }
 
     @Test
-    public void testStreak()
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testStreak() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            int max = Integer.valueOf(results.streak().get("max"));
+        int max = Integer.valueOf(results.streak().get("max"));
 
-            assertFalse("There isn't any \"streak\" in this match!", max == 0);
+        assertFalse(max < 0);
 
-            console.write("The max sequence of kills was " + max + " by " + results.streak().get("player") + ".");
-        }
+        console.write("The max sequence of murders with no death (streak) was " + max + " by " + results.streak().get("player") + ".");
     }
 
     @Test
-    public void testGetPlayerUsages() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testGetPlayerUsages() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            assertTrue(player.toUpperCase() + " hasn't killed in this match!", results.getPlayerUsages(player).size() > 0);
+        assertTrue("The player " + player.toUpperCase() + " doesn't exist!", Players.playerExists(player));
 
-            console.write(player.toUpperCase() + " has used: " + results.getPlayerUsages(player));
-        }
+        assertNotNull(results.getPlayerUsages(player));
+
+        console.write(player.toUpperCase() + " has used: " + results.getPlayerUsages(player));
     }
 
     @Test
-    public void testPreference() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testPreference() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            String preference = results.preference(player);
+        assertTrue("The player " + player.toUpperCase() + " doesn't exist!", Players.playerExists(player));
 
-            assertFalse("There is no preference by " + player.toUpperCase() + "!", preference.isEmpty());
+        String preference = results.preference(player);
 
+        assertNotNull(preference);
+
+        if (preference.isEmpty()) {
+            console.write(player.toUpperCase() + " hasn't any preference!");
+        } else {
             console.write(player.toUpperCase() + " prefers to use " + preference + ".");
         }
     }
 
     @Test
-    public void testFiveKillsPerMinute() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testFiveMurdersPerMinute() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            assertTrue("There isn't anyone who killed 5x/minute!", results.fiveKillsPerMinute().size() > 0);
+        assertNotNull(results.fiveMurdersPerMinute());
 
-            for (String player : results.fiveKillsPerMinute()) {
-                console.write(player.toUpperCase() + " has killed 5x/minute.");
+        if (results.fiveMurdersPerMinute().size() > 0) {
+            for (String player : results.fiveMurdersPerMinute()) {
+                console.write(player.toUpperCase() + " has killed 5x per minute in this match = 1 AWARD.");
             }
+        } else {
+            console.write("Anybody has killed 5x per minute in this match!");
         }
     }
 
     @Test
-    public void testDeathsOfThePlayer() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testDeathsOfThePlayer() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            int d = results.deathsOfThePlayer(player);
+        assertTrue("The player " + player.toUpperCase() + " doesn't exist!", Players.playerExists(player));
 
-            assertTrue(d >= 0);
+        int d = results.deathsOfThePlayer(player);
 
-            console.write(player.toUpperCase() + " has died " + d + (d > 1 ? " times." : " time."));
-        }
+        assertTrue(d >= 0);
+
+        console.write(player.toUpperCase() + " has died " + d + (d > 0 ? "x." : "."));
     }
 
     @Test
-    public void testKillsOfThePlayer() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testMurdersOfThePlayer() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            int k = results.killsOfThePlayer(player);
+        assertTrue("The player " + player.toUpperCase() + " doesn't exist!", Players.playerExists(player));
 
-            assertTrue(k >= 0);
+        int k = results.murdersOfThePlayer(player);
 
-            console.write(player.toUpperCase() + " has killed " + k + (k > 1 ? " times." : " time."));
-        }
+        assertTrue(k >= 0);
+
+        console.write(player.toUpperCase() + " has killed " + k + (k > 0 ? "x." : "."));
     }
 
     @Test
-    public void testPointsOfThePlayer() throws Exception
-    {
-        assertNotNull("It wasn't possible to create a object of Results' class!", results);
+    public void testPointsOfThePlayer() {
 
-        if (results != null) {
+        assertNotNull("The log file doesn't exist!", log);
 
-            int points = results.pointsOfThePlayer(player);
+        assertTrue("The player " + player.toUpperCase() + " doesn't exist!", Players.playerExists(player));
 
-            assertNotNull(points);
+        int p = results.pointsOfThePlayer(player);
 
-            console.write(player.toUpperCase() + " has gotten " + points + (points > 1 ? " points." : " point."));
-        }
+        assertTrue(p >= 0);
+
+        console.write(player.toUpperCase() + " has gotten " + p + (p > 1 ? " points." : " point."));
     }
 }

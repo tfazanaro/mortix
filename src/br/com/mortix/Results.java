@@ -140,7 +140,7 @@ public class Results {
      *
      * @return ArrayList<String> Lista com os nomes dos jogadores.
      */
-    public ArrayList<String> fiveKillsPerMinute() {
+    public final ArrayList<String> fiveMurdersPerMinute() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         ArrayList<String> players = new ArrayList<String>();
@@ -207,7 +207,7 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Número de mortes do jogador.
      */
-    public int deathsOfThePlayer(String player) {
+    public final int deathsOfThePlayer(String player) {
 
         int d = 0;
 
@@ -225,7 +225,7 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Número de assassinatos do jogador.
      */
-    public int killsOfThePlayer(String player) {
+    public final int murdersOfThePlayer(String player) {
 
         int k = 0;
 
@@ -243,12 +243,12 @@ public class Results {
      * @param player Nome do jogador.
      * @return int Pontos do jogador.
      */
-    public int pointsOfThePlayer(String player) {
+    public final int pointsOfThePlayer(String player) {
 
         int points = 0;
 
         if (!player.toUpperCase().equals(Players.WORLD)) {
-            int k = killsOfThePlayer(player);
+            int k = murdersOfThePlayer(player);
             int d = deathsOfThePlayer(player);
             points = k - d;
             points = (points < 0) ? 0 : points;

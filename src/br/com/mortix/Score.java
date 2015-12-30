@@ -3,6 +3,9 @@ package br.com.mortix;
 import br.com.mortix.ui.Console;
 import br.com.mortix.ui.GUI;
 
+/**
+ * Classe responsável por exibir os resultados da partida.
+ */
 public class Score {
 
     private static Log log;
@@ -75,7 +78,7 @@ public class Score {
                 console.newLine();
 
                 points = results.pointsOfThePlayer(player);
-                k = results.killsOfThePlayer(player);
+                k = results.murdersOfThePlayer(player);
                 d = results.deathsOfThePlayer(player);
 
                 if (points > score || (points == score && d < numberOfDeaths)) {
@@ -104,7 +107,7 @@ public class Score {
         console.write("The winner prefers to use " + results.preference(winner) + ".");
         console.newLine();
 
-        console.write("The max sequence of kills with no death (streak) was " + results.streak().get("max") + " by " + results.streak().get("player") + ".");
+        console.write("The max sequence of murders with no death (streak) was " + results.streak().get("max") + " by " + results.streak().get("player") + ".");
         console.newLine();
 
         if (numberOfDeaths == 0) {
@@ -112,7 +115,7 @@ public class Score {
             console.newLine();
         }
 
-        for (String player : results.fiveKillsPerMinute()) {
+        for (String player : results.fiveMurdersPerMinute()) {
             console.write(player + " has killed 5x per minute = 1 AWARD.");
             console.newLine();
         }
