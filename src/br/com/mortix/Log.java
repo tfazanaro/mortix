@@ -95,11 +95,16 @@ public class Log {
 
     private void setPlayersOfTheMatch() {
 
+        if (players.getAll().size() > 0) {
+            players.getAll().clear();
+        }
+
         for (String killer : getKillers()) {
             if (players.getAll().indexOf(killer) < 0) {
                 players.add(killer);
             }
         }
+
         for (String victim : getVictims()) {
             if (players.getAll().indexOf(victim) < 0) {
                 players.add(victim);
@@ -108,6 +113,10 @@ public class Log {
     }
 
     private void setWeaponsOfTheMatch() {
+
+        if (weapons.getAll().size() > 0) {
+            weapons.getAll().clear();
+        }
 
         for (String used : getUsages()) {
             if (weapons.getAll().indexOf(used) < 0) {
