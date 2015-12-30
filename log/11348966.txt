@@ -1,0 +1,10 @@
+28/12/2015 15:34:22 New match 11348966 has started
+28/12/2015 15:36:04 Thomas killed Nick using knife
+28/12/2015 15:38:05 Nick killed Roman using AK47
+28/12/2015 15:39:42 Nick killed Nancy using M16
+28/12/2015 15:40:07 Nick killed Thomas using M16
+28/12/2015 15:42:22 Roman killed Nick using AK47
+28/12/2015 15:43:04 Nancy killed Thomas using AK47
+28/12/2015 15:46:04 Thomas killed Roman using knife
+28/12/2015 15:52:33 <WORLD> killed Thomas by DROWN
+28/12/2015 15:58:42 Match 11348966 has ended
