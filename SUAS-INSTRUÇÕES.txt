@@ -1,0 +1,30 @@
+O problema foi resolvido da seguinte forma:
+
+1 - Considera que o jogo já foi executado anteriormente e um log da partida foi gerado.
+
+2 - A classe Log faz a leitura do arquivo e extrai todas as informações necessárias automaticamente
+e também defini os jogadores e as armas da partida. Este último processo (definir jogadores e armas)
+teoricamente é feito antes da partida ter sido inicializada, mas como a resolução do problema proposto
+foi feita a partir do jogo já finalizado deixei desta forma somente para facilitar o acesso aos dados
+diretamente de uma lista.
+
+3 - O arquivo de log (.txt) deve ter o nome (= número) da partida.
+
+4 - Você pode criar outros arquivos de log (.txt) ou até mesmo modificar as informações (como jogadores
+e armas, sequencias de assassinatos, etc.) de um arquivo existente para testar desde que mantenha o
+mesmo PADRÃO.
+
+5 - Ao executar o programa, a classe Score exibe os resultados da partida.
+
+Obs: Um diálogo é aberto e você deve informar o número da partida (= arquivo de log) que deseja exibir.
+
+6 - A classe de teste de resultados da partida pode ser utilizada para testar cada função da classe Results
+individualmente.
+
+Obs: Defina as variáveis com o nome do arquivo de log que deseja testar e um jogador para ser analisado na
+partida.
+
+7 - As classes Players e Weapons armazenam os jogadores e armas respectivamente da partida em um arrayList
+estático, pois não houve necessidade de criar um novo objeto para cada jogador ou arma e as informações são
+compartilhadas, levando-se em consideração que as definições da partida teoricamente foram feitas antes,
+como foi dito no ITEM 2.
